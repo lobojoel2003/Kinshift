@@ -101,7 +101,7 @@ jobs:
       - name: Start container and wait until healthy
         run: |
           docker run -d --name kinshift -p 3000:3000 -e KINSHIFT_SECRET="$(openssl rand -hex 32)" kinshift:ci
-          for i in $(seq 1 30); do
+          for _ in $(seq 1 30); do
             status=$(docker inspect --format '{{.State.Health.Status}}' kinshift)
             echo "health: $status"
             [ "$status" = "healthy" ] && break
