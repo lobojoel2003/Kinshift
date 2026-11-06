@@ -1,0 +1,21 @@
+# One-click deploy to Render: https://render.com/deploy?repo=https://github.com/lobojoel2003/Kinshift
+# A persistent disk keeps the SQLite database across deploys (requires a paid instance).
+services:
+  - type: web
+    name: kinshift
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: kinshift-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: KINSHIFT_SECRET
+        generateValue: true
+      - key: KINSHIFT_REGISTRATION
+        value: invite
+      - key: DATA_DIR
+        value: /data

@@ -1,0 +1,32 @@
+# Kinshift with Docker Compose.
+#
+#   1. cp .env.example .env   and set KINSHIFT_SECRET (openssl rand -hex 32)
+#   2. docker compose up -d
+#   3. open http://localhost:3000
+#
+# Put Kinshift behind HTTPS (Caddy, Traefik, Cloudflare Tunnel…) before family
+# members use it from their phones: browsers only allow push notifications and
+# app installation over HTTPS.
+
+services:
+  kinshift:
+    image: ghcr.io/lobojoel2003/kinshift:latest
+    # To build from source instead of pulling the published image:
+    # build: .
+    container_name: kinshift
+    restart: unless-stopped
+    ports:
+      - "${KINSHIFT_PORT:-3000}:3000"
+    environment:
+      # Encrypts health data at rest. Keep a copy somewhere safe: without it the
+      # data cannot be read. If empty, Kinshift generates one inside the volume.
+      KINSHIFT_SECRET: ${KINSHIFT_SECRET:-}
+      # Public address, used in invite links (for example https://care.example.com).
+      KINSHIFT_URL: ${KINSHIFT_URL:-}
+      # "invite" (default): only the first person can sign up without an invite.
+      KINSHIFT_REGISTRATION: ${KINSHIFT_REGISTRATION:-invite}
+    volumes:
+      - kinshift-data:/data
+
+volumes:
+  kinshift-data:
