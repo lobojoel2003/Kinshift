@@ -81,6 +81,10 @@ Kinshift follows [Semantic Versioning](https://semver.org/).
    `package.json`, commits and creates the `vX.Y.Z` tag.
 3. `git push --follow-tags`.
 
+Alternatively, after merging the version bump, open **Actions → Release → Run
+workflow** and enter the tag (for example `v1.0.1`). The workflow creates the
+tag on the selected branch and publishes the release.
+
 The Release workflow then checks that the tag matches `package.json`, runs the
 full test suite, publishes a multi-arch Docker image to
 `ghcr.io/lobojoel2003/kinshift` (tags `X.Y.Z`, `X.Y`, `X`, `latest`) with an SBOM
