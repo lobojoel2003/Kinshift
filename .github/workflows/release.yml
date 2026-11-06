@@ -107,7 +107,7 @@ jobs:
             KINSHIFT_BUILD_NUMBER=${{ github.run_number }}
             KINSHIFT_COMMIT_SHA=${{ github.sha }}
             KINSHIFT_BUILD_DATE=${{ steps.date.outputs.now }}
-      - uses: actions/attest-build-provenance@v2
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-name: ${{ env.IMAGE }}
           subject-digest: ${{ steps.push.outputs.digest }}
