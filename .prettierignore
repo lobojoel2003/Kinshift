@@ -1,0 +1,12 @@
+.next
+node_modules
+coverage
+playwright-report
+test-results
+data
+drizzle/meta
+package-lock.json
+public/sw.js
+LICENSE
+*.png
+*.svg
